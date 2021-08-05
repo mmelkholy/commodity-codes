@@ -1,0 +1,28 @@
+{
+  "name": "commodity-codes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -r dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mmelkholy/commodity-codes.git"
+  },
+  "author": "Kholio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmelkholy/commodity-codes/issues"
+  },
+  "homepage": "https://github.com/mmelkholy/commodity-codes#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
