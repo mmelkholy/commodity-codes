@@ -73,6 +73,7 @@ class DataHandler {
       chapters
     })
   }
+  // SHOULD HANDLE THE DB HERE
   return processedData
 }
 
