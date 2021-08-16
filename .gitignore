@@ -1,3 +1,7 @@
+# the exported DB
+/DBExport
+/DBExport/*
+
 # Logs
 logs
 *.log
