@@ -2,17 +2,19 @@ const mongoose = require('mongoose')
 
 const SectionSchema = new mongoose.Schema({
   id: {
-    type: Number,
+    type: String,
     required: true
   },
   title: {
     type: String,
     required: true
   },
-  chapters: {
-    type: Array,
-    required: true
-  }
+  chapters: [{
+    id: {
+      type: String,
+      required: true
+    }
+  }]
 })
 
 SectionSchema.statics.clearAll = async function () {
@@ -34,8 +36,24 @@ SectionSchema.statics.getAll = async function () {
   }
 }
 
+SectionSchema.statics.findById = async function (id) {
+  try {
+    return await SectionsModel.findOne({id})
+  } catch (error) {
+    return false
+  }
+}
+
 SectionSchema.statics.getChaptersOfSection = async function (sectionId) {
   return await SectionsModel.findOne({id: sectionId})
+}
+
+SectionSchema.methods.updateSection = async function (newSection) {
+  const {id, title, chapters} = newSection
+  this.id = id
+  this.title = title
+  this.chapters = chapters
+  return await this.save()
 }
 
 /* SectionSchema.methods.addMany = async function (sections) {
