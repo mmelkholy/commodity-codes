@@ -31,7 +31,7 @@ DBInitializer.get('/sections', async (req, res) => {
       }
     }
     process.stdout.write('\n COMPLETED!\n')
-    console.log(`Wrote ${sectionsCount} sections successfully.`)
+    console.log(`\n\nWrote ${sectionsCount} sections successfully.\n\n`)
     res.send(sections)
   } else {
     return res.send({ error: 'couldn\'t delete oldies' })

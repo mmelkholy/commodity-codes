@@ -18,6 +18,14 @@ const headingSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    sid: {
+      type: String,
+      reuiqred: true
+    },
+    dbId: {
+      type: String,
+      reuiqred: true
+    },
     description: {
       type: String,
       required: true
@@ -29,7 +37,12 @@ const headingSchema = new mongoose.Schema({
     leaf: {
       type: String,
       required: true
-    }
+    },
+    ancestors: [{
+      id: String,
+      sid: String,
+      numberIndents: Number
+    }]
   }]
 })
 

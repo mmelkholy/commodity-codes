@@ -151,11 +151,19 @@ class DataHandler {
         const att = el.attributes
         return {
           id: att.goods_nomenclature_item_id,
+          sid: att.id,
           description: att.description_plain,
           numberIndents: att.number_indents,
-          leaf: att.leaf
+          leaf: att.leaf,
+          parentSid: att.parent_sid,
+          ancestors: []
         }
       })
+      for (let commodity of commodities) {
+        if (commodity.numberIndents !== 1 && parentSid !== null) {
+          // CONTINUE HERE!
+        }
+      }
       processedData.push({
         id: heading.data.attributes.goods_nomenclature_item_id.substr(0, 4),
         description: heading.data.attributes.formatted_description,
