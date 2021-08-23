@@ -56,20 +56,6 @@ SectionSchema.methods.updateSection = async function (newSection) {
   return await this.save()
 }
 
-/* SectionSchema.methods.addMany = async function (sections) {
-  for (let section in sections) {
-    let currentSection = new SectionSchema(section)
-    try {
-      const response = await currentSection.save()
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-      return false
-    }
-    return true
-  }
-} */
-
 const SectionsModel = mongoose.model('sections', SectionSchema)
 
 module.exports = {

@@ -149,7 +149,7 @@ class DataHandler {
       })
       commodities = commodities.map(el => {
         const att = el.attributes
-        console.log(el)
+        // console.log(el)
         return {
           id: att.goods_nomenclature_item_id,
           sid: el.id,

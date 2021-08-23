@@ -93,6 +93,7 @@ headingSchema.methods.getAncestry = function (commoditySid) {
   }
 }
 
+// Construct the ancestry tree for the commodities inside each 
 headingSchema.pre('save', function () {
   for (let commodity of this.commodities) {
     commodity.ancestors = this.getAncestry(commodity.sid)

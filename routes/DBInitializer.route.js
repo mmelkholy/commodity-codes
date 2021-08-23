@@ -75,16 +75,15 @@ DBInitializer.get('/headings/:chapterIds', async (req, res) => {
   chaptersArray = []
   headingsArray = []
   let limit = chapterId.length === 1 ? chapterId[0] : chapterId[1]
-  console.log(limit)
+  // console.log(limit)
   for (let i = Number(chapterId[0]); i <= Number(limit); i++) {
     if (i < 10) {
       chaptersArray.push('0' + i)
     } else {
       chaptersArray.push(i.toString())
-      console.log()
     }
   }
-  console.log(chaptersArray)
+  // console.log(chaptersArray)
   for (let chapterId of chaptersArray) {
     const chapter = await ChaptersModel.getChapterById(chapterId)
     console.log(`Fetching Chapter # ${chapterId}`)
