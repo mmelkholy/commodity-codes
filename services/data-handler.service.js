@@ -149,9 +149,10 @@ class DataHandler {
       })
       commodities = commodities.map(el => {
         const att = el.attributes
+        console.log(el)
         return {
           id: att.goods_nomenclature_item_id,
-          sid: att.id,
+          sid: el.id,
           description: att.description_plain,
           numberIndents: att.number_indents,
           leaf: att.leaf,
@@ -160,8 +161,14 @@ class DataHandler {
         }
       })
       for (let commodity of commodities) {
-        if (commodity.numberIndents !== 1 && parentSid !== null) {
+        if (commodity.numberIndents !== 1 && commodity.parentSid !== null) {
           // CONTINUE HERE!
+          let ancestor = {
+            id: null,
+            sid: commodity.parentSid,
+            numberIndents: null
+          }
+          // const ancestorNode = 
         }
       }
       processedData.push({

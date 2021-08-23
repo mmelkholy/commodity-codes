@@ -71,16 +71,20 @@ DBInitializer.get('/chapters/:sectionId', async (req, res) => {
 DBInitializer.get('/headings/:chapterIds', async (req, res) => {
   let chapterId = req.params['chapterIds']
   if (!chapterId) return res.sendStatus(404)
-  chapterId = chapterId.split('-')
+  chapterId = chapterId.indexOf('-') ? chapterId.split('-') : [chapterId]
   chaptersArray = []
   headingsArray = []
-  for (let i = Number(chapterId[0]); i <= Number(chapterId[1]); i++) {
+  let limit = chapterId.length === 1 ? chapterId[0] : chapterId[1]
+  console.log(limit)
+  for (let i = Number(chapterId[0]); i <= Number(limit); i++) {
     if (i < 10) {
       chaptersArray.push('0' + i)
     } else {
       chaptersArray.push(i.toString())
+      console.log()
     }
   }
+  console.log(chaptersArray)
   for (let chapterId of chaptersArray) {
     const chapter = await ChaptersModel.getChapterById(chapterId)
     console.log(`Fetching Chapter # ${chapterId}`)
@@ -111,8 +115,6 @@ DBInitializer.get('/headings/:chapterIds', async (req, res) => {
 // Add/Update Commodities for specific headings
 DBInitializer.get('/commodities/:headingIdRange', async (req, res) => {
 })
-
-
 
 module.exports = {
   DBInitializer

@@ -22,7 +22,7 @@ const headingSchema = new mongoose.Schema({
       type: String,
       reuiqred: true
     },
-    dbId: {
+    parentSid: {
       type: String,
       reuiqred: true
     },
@@ -56,6 +56,48 @@ headingSchema.methods.updateHeading = async function (newHeading) {
   }
   return await this.save()
 }
+
+// Find the immediate parent of a commodity in this heading
+headingSchema.methods.getImmediateParent = function (commoditySid) {
+  const currentCommodity = this.commodities.find(commodity => commodity.sid === commoditySid)
+  // console.log(currentCommodity)
+  if (currentCommodity.parentSid) {
+    const parent = this.commodities.find(commodity => commodity.sid === currentCommodity.parentSid)
+    return {
+      id: parent.id,
+      sid: parent.sid,
+      numberIndents: parent.numberIndents
+    }
+  } else {
+    return null
+  }
+}
+
+// Find the whole ancestry of a commodity in this heading
+headingSchema.methods.getAncestry = function (commoditySid) {
+  const currentCommodity = this.commodities.find(commodity => commodity.sid === commoditySid)
+  if (currentCommodity.parentSid) {
+    let ancestry = []
+    ancestry.push(this.getImmediateParent(commoditySid))
+    for (let i = currentCommodity.numberIndents; i > 0; --i) {
+      for (let parent of ancestry) {
+        if (parent && parent.numberIndents === i) {
+          const theParent = this.getImmediateParent(parent.sid)
+          if (theParent) ancestry.push(theParent)
+        }
+      }
+    }
+    return ancestry
+  } else {
+    return null
+  }
+}
+
+headingSchema.pre('save', function () {
+  for (let commodity of this.commodities) {
+    commodity.ancestors = this.getAncestry(commodity.sid)
+  }
+})
 
 const HeadingsModel = mongoose.model('headings', headingSchema)
 
